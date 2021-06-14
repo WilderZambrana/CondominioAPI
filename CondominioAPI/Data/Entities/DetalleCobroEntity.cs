@@ -13,9 +13,9 @@ namespace CondominioAPI.Data.Entities
         [Required]
         public long Id { get; set; }
         [ForeignKey("DepartamentoId")]
-        public DepartamentoEntity Departmento { get; set; }
+        public virtual DepartamentoEntity Departmento { get; set; }
         [ForeignKey("TipoCobroId")]
-        public TipoCobroEntity TipoCobro { get; set; }
+        public virtual TipoCobroEntity TipoCobro { get; set; }
         public int NumeroCuota { get; set; } //no se a que se refiere este atributo
         public string Estado { get; set; }
         public decimal ValorAPagar { get; set; }

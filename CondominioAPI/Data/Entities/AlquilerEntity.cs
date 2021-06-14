@@ -13,7 +13,7 @@ namespace CondominioAPI.Data.Entities
         [Required]
         public long Id { get; set; }
         [ForeignKey("DepartamentoId")]
-        public DepartamentoEntity Departamento { get; set; }
+        public virtual DepartamentoEntity Departamento { get; set; }
         public DateTime FechaInicio { get; set; }
         public DateTime FechaFin { get; set; }
         public string Estado { get; set; }
