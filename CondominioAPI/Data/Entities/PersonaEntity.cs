@@ -19,9 +19,7 @@ namespace CondominioAPI.Data.Entities
         public long Telefono { get; set; }
         public string Email { get; set; }
         public long Celular { get; set; }
-        [ForeignKey("RolId")]
-        public virtual RolEntity Rol { get; set; }
         public DateTime FechaRegistro { get; set; }
-        public DateTime FechaActualizacion { get; set; }
+        public DateTime FechaActualizacion { get; set; }        
     }
 }

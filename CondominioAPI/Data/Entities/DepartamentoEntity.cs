@@ -14,13 +14,12 @@ namespace CondominioAPI.Data.Entities
         public long Id { get; set; }
         public string Bloque { get; set; }
         public string NumeroDepartamento { get; set; } // ejemplo: 1A 
-        public int NumeroDormitorios { get; set; }
-        [ForeignKey("PropietarioId")]
-        public virtual PersonaEntity Propietario { get; set; }
-        [ForeignKey("ArrendatarioId")]
-        public virtual PersonaEntity Arrendatario { get; set; }
-
+        public int NumeroDormitorios { get; set; }        
         public DateTime FechaRegistro { get; set; }
-        public DateTime FechaActualizacion { get; set; }
+        [ForeignKey("PropietarioId")]
+        public virtual PropietarioEntity Propietario { get; set; }
+        [ForeignKey("ArrendatarioId")]
+        public virtual ArrendatarioEntity Arrendatario { get; set; }
+        public DateTime FechaActualizacion { get; set; }        
     }
 }
