@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CondominioAPI.Data.Entities
 {
-    public class DepartamentoPersonaEntity
+    public class DepartamentoResidenteEntity
     {
         [Key]
         [Required]
