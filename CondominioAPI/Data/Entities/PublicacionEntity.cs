@@ -12,8 +12,8 @@ namespace CondominioAPI.Data.Entities
         [Key]
         [Required]
         public long Id { get; set; }
-        [ForeignKey("UsuarioId")]
-        public virtual UsuarioEntity Usuario { get; set; }
+        [ForeignKey("PersonaId")]
+        public virtual PersonaEntity Persona { get; set; }
         [ForeignKey("DepartamentoId")]
         public virtual DepartamentoEntity Departamento { get; set; }
         public string Asunto { get; set; }

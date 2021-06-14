@@ -9,7 +9,7 @@ namespace CondominioAPI.Data
 {
     public class CondominioDbContext : DbContext
     {
-        public DbSet<UsuarioEntity> Usuarios { get; set; }
+        public DbSet<PersonaEntity> Residentes { get; set; }
         public DbSet<DepartamentoEntity> Departamentos { get; set; }
 
         public CondominioDbContext(DbContextOptions<CondominioDbContext> options):base(options)
@@ -20,8 +20,8 @@ namespace CondominioAPI.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<UsuarioEntity>().ToTable("Residentes");
-            modelBuilder.Entity<UsuarioEntity>().Property(r => r.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<PersonaEntity>().ToTable("Residentes");
+            modelBuilder.Entity<PersonaEntity>().Property(r => r.Id).ValueGeneratedOnAdd();
 
             modelBuilder.Entity<DepartamentoEntity>().ToTable("Departamentos");
             modelBuilder.Entity<DepartamentoEntity>().Property(d => d.Id).ValueGeneratedOnAdd();

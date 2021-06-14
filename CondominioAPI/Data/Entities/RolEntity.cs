@@ -12,5 +12,6 @@ namespace CondominioAPI.Data.Entities
         [Required]
         public long Id { get; set; }
         public string NombreRol { get; set; }
+        public ICollection<PersonaEntity> Personas { get; set; }
     }
 }

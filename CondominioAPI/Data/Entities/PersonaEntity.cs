@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CondominioAPI.Data.Entities
 {
-    public class UsuarioEntity
+    public class PersonaEntity
     {
         [Key]
         [Required]
