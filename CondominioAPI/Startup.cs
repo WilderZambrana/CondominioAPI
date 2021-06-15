@@ -40,7 +40,7 @@ namespace CondominioAPI
 
             //entity framework configuration  FootballConnection
             services.AddDbContext<CondominioDbContext>(options => {
-                options.UseSqlServer(Configuration.GetConnectionString("FootballConnection"));
+                options.UseSqlServer(Configuration.GetConnectionString("CondominioConnection"));
             });
 
             services.AddCors(c =>
