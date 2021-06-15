@@ -1,5 +1,6 @@
 using CondominioAPI.Data;
 using CondominioAPI.Data.Repository;
+using CondominioAPI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -28,8 +29,9 @@ namespace CondominioAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddTransient<ITeamsService, TeamsService>();
-            services.AddTransient<IPlayersService, PlayersService>();
+            services.AddTransient<IPersonasService, PersonasService>();
+            services.AddTransient<IDepartamentosService, DepartamentosService>();
+            services.AddTransient<IAlquileresService, AlquileresService>();
 
             services.AddTransient<ICondominioRepository, CondominioRepository>();
 
