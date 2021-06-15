@@ -1,6 +1,9 @@
+using CondominioAPI.Data;
+using CondominioAPI.Data.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,6 +28,23 @@ namespace CondominioAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddTransient<ITeamsService, TeamsService>();
+            services.AddTransient<IPlayersService, PlayersService>();
+
+            services.AddTransient<ICondominioRepository, CondominioRepository>();
+
+            //automapper configuration
+            services.AddAutoMapper(typeof(Startup));
+
+            //entity framework configuration  FootballConnection
+            services.AddDbContext<CondominioDbContext>(options => {
+                options.UseSqlServer(Configuration.GetConnectionString("FootballConnection"));
+            });
+
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => { options.AllowAnyOrigin(); options.AllowAnyMethod(); options.AllowAnyHeader(); });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -33,6 +53,7 @@ namespace CondominioAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseCors(options => { options.AllowAnyOrigin(); options.AllowAnyMethod(); options.AllowAnyHeader(); });
             }
 
             app.UseRouting();
