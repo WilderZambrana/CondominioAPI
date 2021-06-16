@@ -151,7 +151,9 @@ namespace CondominioAPI.Data.Repository
         }
         public async Task<IEnumerable<PublicacionEntity>> GetPublicacionesAsync()
         {
-            throw new NotImplementedException();
+            IQueryable<PublicacionEntity> query = _dbContext.Publicaciones;
+            query = query.AsNoTracking();
+            return await query.ToListAsync();
         }
         public async Task<RolEntity> GetRolAsync(long rolId)
         {
@@ -161,7 +163,9 @@ namespace CondominioAPI.Data.Repository
         }
         public async Task<IEnumerable<RolEntity>> GetRolesAsync()
         {
-            throw new NotImplementedException();
+            IQueryable<RolEntity> query = _dbContext.Roles;
+            query = query.AsNoTracking();
+            return await query.ToListAsync();
         }
 
         //SAVE CHANGES
@@ -179,33 +183,74 @@ namespace CondominioAPI.Data.Repository
         }
 
         //UPDATES
-        public Task UpdateAlquilerAsync(long alquilerId, AlquilerEntity updatedAlquiler)
+        public async Task UpdateAlquilerAsync(long alquilerId, AlquilerEntity updatedAlquiler)
         {
-            throw new NotImplementedException();
+            var toUpdate = await _dbContext.Alquileres.FirstOrDefaultAsync(t => t.Id == alquilerId);
+
+            toUpdate.FechaInicio = updatedAlquiler.FechaInicio ?? toUpdate.FechaInicio;
+            toUpdate.FechaFin = updatedAlquiler.FechaFin ?? toUpdate.FechaFin;
+            toUpdate.Departamento = updatedAlquiler.Departamento ?? toUpdate.Departamento;
+            toUpdate.Arrendatario = updatedAlquiler.Arrendatario ?? toUpdate.Arrendatario;
         }
-        public Task UpdateCobroAsync(long cobroId, CobroEntity updatedCobro)
+        public async Task UpdateCobroAsync(long cobroId, CobroEntity updatedCobro)
         {
-            throw new NotImplementedException();
+            var toUpdate = await _dbContext.Cobros.FirstOrDefaultAsync(t => t.Id == cobroId);
+
+            toUpdate.Descripcion = updatedCobro.Descripcion ?? toUpdate.Descripcion;
+            toUpdate.Valor = updatedCobro.Valor ?? toUpdate.Valor;
+            toUpdate.MultaPorcentaje = updatedCobro.MultaPorcentaje ?? toUpdate.MultaPorcentaje;
+            toUpdate.FechaRegistro = updatedCobro.FechaRegistro ?? toUpdate.FechaRegistro;
+            toUpdate.FechaVencimiento = updatedCobro.FechaVencimiento ?? toUpdate.FechaVencimiento;
+            toUpdate.Departamento = updatedCobro.Departamento ?? toUpdate.Departamento;
         }
-        public Task UpdateDepartamentoAsync(long departamentoId, DepartamentoEntity updatedDepartamento)
+        public async Task UpdateDepartamentoAsync(long departamentoId, DepartamentoEntity updatedDepartamento)
         {
-            throw new NotImplementedException();
+            var toUpdate = await _dbContext.Departamentos.FirstOrDefaultAsync(t => t.Id == departamentoId);
+
+            toUpdate.Bloque = updatedDepartamento.Bloque ?? toUpdate.Bloque;
+            toUpdate.NumeroDepartamento = updatedDepartamento.NumeroDepartamento ?? toUpdate.NumeroDepartamento;
+            toUpdate.NumeroDormitorios = updatedDepartamento.NumeroDormitorios ?? toUpdate.NumeroDormitorios;
+            toUpdate.FechaRegistro = updatedDepartamento.FechaRegistro ?? toUpdate.FechaRegistro;
+            toUpdate.FechaActualizacion = updatedDepartamento.FechaActualizacion ?? toUpdate.FechaActualizacion;
+            toUpdate.Propietario = updatedDepartamento.Propietario ?? toUpdate.Propietario; 
         }
-        public Task UpdateLoginAsync(long loginId, LoginEntity updatedLogin)
+        public async Task UpdateLoginAsync(long loginId, LoginEntity updatedLogin)
         {
-            throw new NotImplementedException();
+            var toUpdate = await _dbContext.Logins.FirstOrDefaultAsync(t => t.Id == loginId);
+
+            toUpdate.Usuario = updatedLogin.Usuario ?? toUpdate.Usuario;
+            toUpdate.Password = updatedLogin.Password ?? toUpdate.Password;
+            toUpdate.Persona = updatedLogin.Persona ?? toUpdate.Persona;
+            toUpdate.Rol = updatedLogin.Rol ?? toUpdate.Rol;
         }
-        public Task UpdatePersonaAsync(long personaId, PersonaEntity updatedPersona)
+        public async Task UpdatePersonaAsync(long personaId, PersonaEntity updatedPersona)
         {
-            throw new NotImplementedException();
+            var toUpdate = await _dbContext.Personas.FirstOrDefaultAsync(t => t.Id == personaId);
+
+            toUpdate.Nombres = updatedPersona.Nombres ?? toUpdate.Nombres;
+            toUpdate.Apellidos = updatedPersona.Apellidos ?? toUpdate.Apellidos;
+            toUpdate.Identificacion = updatedPersona.Identificacion ?? toUpdate.Identificacion;
+            toUpdate.Telefono = updatedPersona.Telefono ?? toUpdate.Telefono;
+            toUpdate.Email = updatedPersona.Email ?? toUpdate.Email;
+            toUpdate.Celular = updatedPersona.Celular ?? toUpdate.Celular;
+            toUpdate.FechaRegistro = updatedPersona.FechaRegistro ?? toUpdate.FechaRegistro;
+            toUpdate.FechaActualizacion = updatedPersona.FechaActualizacion ?? toUpdate.FechaActualizacion;
+            toUpdate.Rol = updatedPersona.Rol ?? toUpdate.Rol;
         }
-        public Task UpdatePublicacionAsync(long publicacionId, PublicacionEntity updatedPublicacion)
+        public async Task UpdatePublicacionAsync(long publicacionId, PublicacionEntity updatedPublicacion)
         {
-            throw new NotImplementedException();
+            var toUpdate = await _dbContext.Publicaciones.FirstOrDefaultAsync(t => t.Id == publicacionId);
+
+            toUpdate.Persona = updatedPublicacion.Persona ?? toUpdate.Persona;
+            toUpdate.Asunto = updatedPublicacion.Asunto ?? toUpdate.Asunto;
+            toUpdate.Detalle = updatedPublicacion.Detalle ?? toUpdate.Detalle;
+            toUpdate.FechaPublicacion = updatedPublicacion.FechaPublicacion ?? toUpdate.FechaPublicacion;
         }
-        public Task UpdateRolAsync(long rolId, RolEntity updatedRol)
+        public async Task UpdateRolAsync(long rolId, RolEntity updatedRol)
         {
-            throw new NotImplementedException();
+            var toUpdate = await _dbContext.Roles.FirstOrDefaultAsync(t => t.Id == rolId);
+
+            toUpdate.NombreRol = updatedRol.NombreRol ?? toUpdate.NombreRol;
         }
     }
 }
