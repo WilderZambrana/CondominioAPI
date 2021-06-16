@@ -26,7 +26,7 @@ namespace CondominioAPI.Data
             modelBuilder.Entity<PersonaEntity>().HasMany(r => r.Departamentos).WithOne(d => d.Propietario);
             modelBuilder.Entity<PersonaEntity>().HasMany(r => r.Alquileres).WithOne(a => a.Arrendatario);
             modelBuilder.Entity<PersonaEntity>().HasMany(r => r.Publicaciones).WithOne(p => p.Persona);
-            modelBuilder.Entity<PersonaEntity>().HasMany(r => r.Cuentas).WithOne(l => l.Persona);
+            modelBuilder.Entity<PersonaEntity>().HasMany(r => r.Logins).WithOne(l => l.Persona);
 
             modelBuilder.Entity<DepartamentoEntity>().ToTable("Departamentos");
             modelBuilder.Entity<DepartamentoEntity>().Property(d => d.Id).ValueGeneratedOnAdd();
@@ -54,7 +54,7 @@ namespace CondominioAPI.Data
             modelBuilder.Entity<LoginEntity>().ToTable("Cuentas");
             modelBuilder.Entity<LoginEntity>().Property(l => l.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<LoginEntity>().HasOne(l => l.Rol).WithMany(r => r.Logins);
-            modelBuilder.Entity<LoginEntity>().HasOne(l => l.Persona).WithMany(p => p.Cuentas);
+            modelBuilder.Entity<LoginEntity>().HasOne(l => l.Persona).WithMany(p => p.Logins);
         }
     }
 }
