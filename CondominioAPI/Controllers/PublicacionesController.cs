@@ -11,21 +11,21 @@ using System.Threading.Tasks;
 namespace CondominioAPI.Controllers
 {
     [Route("api/[controller]")]
-    public class AlquileresController : Controller
+    public class PublicacionesController : Controller
     {
-        private IAlquileresService _alquileresService;
-        public AlquileresController(IAlquileresService alquileresService)
+        private IPublicacionesService _publicacionesService;
+        public PublicacionesController(IPublicacionesService publicacionesService)
         {
-            _alquileresService = alquileresService;
+            _publicacionesService = publicacionesService;
         }
 
-        //api/alquileres
+        //api/publicaciones
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AlquilerModel>>> GetAlquileresAsync()
+        public async Task<ActionResult<IEnumerable<PublicacionModel>>> GetPublicacionesAsync()
         {
             try
             {
-                var result = await _alquileresService.GetAlquileresAsync();
+                var result = await _publicacionesService.GetPublicacionesAsync();
                 return Ok(result);
             }
             catch (InvalidOperationItemException ex)
@@ -37,13 +37,13 @@ namespace CondominioAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
             }
         }
-        //api/alquileres/{alquilerId}
-        [HttpGet("{alquilerId:long}")]
-        public async Task<ActionResult<AlquilerModel>> GetAlquilerAsync(long alquilerId)
+        //api/publicaciones/{publicacionId}
+        [HttpGet("{publicacionId:long}")]
+        public async Task<ActionResult<PublicacionModel>> GetPublicacionAsync(long publicacionId)
         {
             try
             {
-                var result = await _alquileresService.GetAlquilerAsync(alquilerId);
+                var result = await _publicacionesService.GetPublicacionAsync(publicacionId);
                 return Ok(result);
             }
             catch (NotFoundItemException ex)
@@ -55,30 +55,30 @@ namespace CondominioAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
             }
         }
-        //api/alquileres
+        //api/publicaciones
         [HttpPost]
-        public async Task<ActionResult<AlquilerModel>> CreateAlquilerAsync([FromBody] AlquilerModel newAlquiler)
+        public async Task<ActionResult<PublicacionModel>> CreatePublicacionAsync([FromBody] PublicacionModel newPublicacion)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var result = await _alquileresService.CreateAlquilerAsync(newAlquiler);
-                return Created($"/api/alquileres/{result.Id}", result);
+                var result = await _publicacionesService.CreatePublicacionAsync(newPublicacion);
+                return Created($"/api/publicaciones/{result.Id}", result);
             }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
             }
         }
-        //api/alquileres/{alquilerId}
-        [HttpDelete("{alquilerId:long}")]
-        public async Task<ActionResult<bool>> DeleteAlquilerAsync(long alquilerId)
+        //api/publicaciones/{publicacionId}
+        [HttpDelete("{publicacionId:long}")]
+        public async Task<ActionResult<bool>> DeletePublicacionAsync(long publicacionId)
         {
             try
             {
-                var result = await _alquileresService.DeleteAlquilerAsync(alquilerId);
+                var result = await _publicacionesService.DeletePublicacionAsync(publicacionId);
                 return Ok(result);
             }
             catch (NotFoundItemException ex)
@@ -90,13 +90,13 @@ namespace CondominioAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
             }
         }
-        //api/alquileres/{alquilerId}
-        [HttpPut("{alquilerId:long}")]
-        public async Task<ActionResult<AlquilerModel>> UpdateAlquilerAsync(long alquilerId, [FromBody] AlquilerModel updatedAlquiler)
+        //api/publicaciones/{publicacionId}
+        [HttpPut("{publicacionId:long}")]
+        public async Task<ActionResult<PublicacionModel>> UpdatePublicacionAsync(long publicacionId, [FromBody] PublicacionModel updatedPublicacion)
         {
             try
             {
-                var result = await _alquileresService.UpdateAlquilerAsync(alquilerId, updatedAlquiler);
+                var result = await _publicacionesService.UpdatePublicacionAsync(publicacionId, updatedPublicacion);
                 return Ok(result);
             }
             catch (NotFoundItemException ex)

@@ -37,7 +37,25 @@ namespace CondominioAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
             }
         }
-
+        //api/personas/{personaId}
+        [HttpGet("{personaId:long}")]
+        public async Task<ActionResult<PersonaModel>> GetPersonaAsync(long personaId)
+        {
+            try
+            {
+                var result = await _personasService.GetPersonaAsync(personaId);
+                return Ok(result);
+            }
+            catch (NotFoundItemException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
+            }
+        }
+        //api/personas
         [HttpPost]
         public async Task<ActionResult<PersonaModel>> CreatePersonaAsync([FromBody] PersonaModel newPersona)
         {
@@ -48,6 +66,42 @@ namespace CondominioAPI.Controllers
 
                 var result = await _personasService.CreatePersonaAsync(newPersona);
                 return Created($"/api/teams/{result.Id}", result);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
+            }
+        }        
+        //api/personas/{personaId}
+        [HttpDelete("{personaId:long}")]
+        public async Task<ActionResult<bool>> DeletePersonaAsync(long personaId)
+        {
+            try
+            {
+                var result = await _personasService.DeletePersonaAsync(personaId);
+                return Ok(result);
+            }
+            catch (NotFoundItemException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
+            }
+        }
+        //api/personas/{personaId}
+        [HttpPut("{personaId:long}")]
+        public async Task<ActionResult<PersonaModel>> UpdatePersonaAsync(long personaId, [FromBody] PersonaModel updatedPersona)
+        {
+            try
+            {
+                var team = await _personasService.UpdatePersonaAsync(personaId, updatedPersona);
+                return Ok(team);
+            }
+            catch (NotFoundItemException ex)
+            {
+                return NotFound(ex.Message);
             }
             catch (Exception)
             {

@@ -11,21 +11,21 @@ using System.Threading.Tasks;
 namespace CondominioAPI.Controllers
 {
     [Route("api/[controller]")]
-    public class AlquileresController : Controller
+    public class CobrosController : Controller
     {
-        private IAlquileresService _alquileresService;
-        public AlquileresController(IAlquileresService alquileresService)
+        private ICobrosService _cobrosService;
+        public CobrosController(ICobrosService cobrosService)
         {
-            _alquileresService = alquileresService;
+            _cobrosService = cobrosService;
         }
 
-        //api/alquileres
+        //api/cobros
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AlquilerModel>>> GetAlquileresAsync()
+        public async Task<ActionResult<IEnumerable<CobroModel>>> GetCobrosAsync()
         {
             try
             {
-                var result = await _alquileresService.GetAlquileresAsync();
+                var result = await _cobrosService.GetCobrosAsync();
                 return Ok(result);
             }
             catch (InvalidOperationItemException ex)
@@ -37,13 +37,13 @@ namespace CondominioAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
             }
         }
-        //api/alquileres/{alquilerId}
-        [HttpGet("{alquilerId:long}")]
-        public async Task<ActionResult<AlquilerModel>> GetAlquilerAsync(long alquilerId)
+        //api/cobros/{alquilerId}
+        [HttpGet("{cobroId:long}")]
+        public async Task<ActionResult<CobroModel>> GetCobroAsync(long cobroId)
         {
             try
             {
-                var result = await _alquileresService.GetAlquilerAsync(alquilerId);
+                var result = await _cobrosService.GetCobroAsync(cobroId);
                 return Ok(result);
             }
             catch (NotFoundItemException ex)
@@ -55,30 +55,30 @@ namespace CondominioAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
             }
         }
-        //api/alquileres
+        //api/cobros
         [HttpPost]
-        public async Task<ActionResult<AlquilerModel>> CreateAlquilerAsync([FromBody] AlquilerModel newAlquiler)
+        public async Task<ActionResult<CobroModel>> CreateCobroAsync([FromBody] CobroModel newCobro)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var result = await _alquileresService.CreateAlquilerAsync(newAlquiler);
-                return Created($"/api/alquileres/{result.Id}", result);
+                var result = await _cobrosService.CreateCobroAsync(newCobro);
+                return Created($"/api/cobros/{result.Id}", result);
             }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
             }
         }
-        //api/alquileres/{alquilerId}
-        [HttpDelete("{alquilerId:long}")]
-        public async Task<ActionResult<bool>> DeleteAlquilerAsync(long alquilerId)
+        //api/cobros/{cobroId}
+        [HttpDelete("{cobroId:long}")]
+        public async Task<ActionResult<bool>> DeleteCobroAsync(long cobroId)
         {
             try
             {
-                var result = await _alquileresService.DeleteAlquilerAsync(alquilerId);
+                var result = await _cobrosService.DeleteCobroAsync(cobroId);
                 return Ok(result);
             }
             catch (NotFoundItemException ex)
@@ -90,13 +90,13 @@ namespace CondominioAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
             }
         }
-        //api/alquileres/{alquilerId}
-        [HttpPut("{alquilerId:long}")]
-        public async Task<ActionResult<AlquilerModel>> UpdateAlquilerAsync(long alquilerId, [FromBody] AlquilerModel updatedAlquiler)
+        //api/cobros/{cobroId}
+        [HttpPut("{cobroId:long}")]
+        public async Task<ActionResult<CobroModel>> UpdateCobroAsync(long cobroId, [FromBody] CobroModel updatedCobro)
         {
             try
             {
-                var result = await _alquileresService.UpdateAlquilerAsync(alquilerId, updatedAlquiler);
+                var result = await _cobrosService.UpdateCobroAsync(cobroId, updatedCobro);
                 return Ok(result);
             }
             catch (NotFoundItemException ex)

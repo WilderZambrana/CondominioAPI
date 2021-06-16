@@ -11,21 +11,21 @@ using System.Threading.Tasks;
 namespace CondominioAPI.Controllers
 {
     [Route("api/[controller]")]
-    public class AlquileresController : Controller
+    public class LoginsController : Controller
     {
-        private IAlquileresService _alquileresService;
-        public AlquileresController(IAlquileresService alquileresService)
+        private ILoginsService _loginsService;
+        public LoginsController(ILoginsService loginsService)
         {
-            _alquileresService = alquileresService;
+            _loginsService = loginsService;
         }
 
-        //api/alquileres
+        //api/logins
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AlquilerModel>>> GetAlquileresAsync()
+        public async Task<ActionResult<IEnumerable<LoginModel>>> GetLoginsAsync()
         {
             try
             {
-                var result = await _alquileresService.GetAlquileresAsync();
+                var result = await _loginsService.GetLoginsAsync();
                 return Ok(result);
             }
             catch (InvalidOperationItemException ex)
@@ -37,13 +37,13 @@ namespace CondominioAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
             }
         }
-        //api/alquileres/{alquilerId}
-        [HttpGet("{alquilerId:long}")]
-        public async Task<ActionResult<AlquilerModel>> GetAlquilerAsync(long alquilerId)
+        //api/logins/{loginId}
+        [HttpGet("{loginId:long}")]
+        public async Task<ActionResult<LoginModel>> GetLoginAsync(long loginId)
         {
             try
             {
-                var result = await _alquileresService.GetAlquilerAsync(alquilerId);
+                var result = await _loginsService.GetLoginAsync(loginId);
                 return Ok(result);
             }
             catch (NotFoundItemException ex)
@@ -55,30 +55,30 @@ namespace CondominioAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
             }
         }
-        //api/alquileres
+        //api/logins
         [HttpPost]
-        public async Task<ActionResult<AlquilerModel>> CreateAlquilerAsync([FromBody] AlquilerModel newAlquiler)
+        public async Task<ActionResult<LoginModel>> CreateLoginAsync([FromBody] LoginModel newLogin)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var result = await _alquileresService.CreateAlquilerAsync(newAlquiler);
-                return Created($"/api/alquileres/{result.Id}", result);
+                var result = await _loginsService.CreateLoginAsync(newLogin);
+                return Created($"/api/logins/{result.Id}", result);
             }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
             }
         }
-        //api/alquileres/{alquilerId}
-        [HttpDelete("{alquilerId:long}")]
-        public async Task<ActionResult<bool>> DeleteAlquilerAsync(long alquilerId)
+        //api/logins/{loginId}
+        [HttpDelete("{loginId:long}")]
+        public async Task<ActionResult<bool>> DeleteLoginAsync(long loginId)
         {
             try
             {
-                var result = await _alquileresService.DeleteAlquilerAsync(alquilerId);
+                var result = await _loginsService.DeleteLoginAsync(loginId);
                 return Ok(result);
             }
             catch (NotFoundItemException ex)
@@ -90,13 +90,13 @@ namespace CondominioAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
             }
         }
-        //api/alquileres/{alquilerId}
-        [HttpPut("{alquilerId:long}")]
-        public async Task<ActionResult<AlquilerModel>> UpdateAlquilerAsync(long alquilerId, [FromBody] AlquilerModel updatedAlquiler)
+        //api/logins/{loginId}
+        [HttpPut("{loginId:long}")]
+        public async Task<ActionResult<LoginModel>> UpdateLoginAsync(long loginId, [FromBody] LoginModel updatedLogin)
         {
             try
             {
-                var result = await _alquileresService.UpdateAlquilerAsync(alquilerId, updatedAlquiler);
+                var result = await _loginsService.UpdateLoginAsync(loginId, updatedLogin);
                 return Ok(result);
             }
             catch (NotFoundItemException ex)

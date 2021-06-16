@@ -11,21 +11,21 @@ using System.Threading.Tasks;
 namespace CondominioAPI.Controllers
 {
     [Route("api/[controller]")]
-    public class AlquileresController : Controller
+    public class RolesController : Controller
     {
-        private IAlquileresService _alquileresService;
-        public AlquileresController(IAlquileresService alquileresService)
+        private IRolesService _rolesService;
+        public RolesController(IRolesService rolesService)
         {
-            _alquileresService = alquileresService;
+            _rolesService = rolesService;
         }
 
-        //api/alquileres
+        //api/roles
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AlquilerModel>>> GetAlquileresAsync()
+        public async Task<ActionResult<IEnumerable<RolModel>>> GetRolesAsync()
         {
             try
             {
-                var result = await _alquileresService.GetAlquileresAsync();
+                var result = await _rolesService.GetRolesAsync();
                 return Ok(result);
             }
             catch (InvalidOperationItemException ex)
@@ -37,13 +37,13 @@ namespace CondominioAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
             }
         }
-        //api/alquileres/{alquilerId}
-        [HttpGet("{alquilerId:long}")]
-        public async Task<ActionResult<AlquilerModel>> GetAlquilerAsync(long alquilerId)
+        //api/roles/{rolId}
+        [HttpGet("{rolId:long}")]
+        public async Task<ActionResult<RolModel>> GetRolAsync(long rolId)
         {
             try
             {
-                var result = await _alquileresService.GetAlquilerAsync(alquilerId);
+                var result = await _rolesService.GetRolAsync(rolId);
                 return Ok(result);
             }
             catch (NotFoundItemException ex)
@@ -55,30 +55,30 @@ namespace CondominioAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
             }
         }
-        //api/alquileres
+        //api/roles
         [HttpPost]
-        public async Task<ActionResult<AlquilerModel>> CreateAlquilerAsync([FromBody] AlquilerModel newAlquiler)
+        public async Task<ActionResult<RolModel>> CreateRolAsync([FromBody] RolModel newRol)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var result = await _alquileresService.CreateAlquilerAsync(newAlquiler);
-                return Created($"/api/alquileres/{result.Id}", result);
+                var result = await _rolesService.CreateRolAsync(newRol);
+                return Created($"/api/roles/{result.Id}", result);
             }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
             }
         }
-        //api/alquileres/{alquilerId}
-        [HttpDelete("{alquilerId:long}")]
-        public async Task<ActionResult<bool>> DeleteAlquilerAsync(long alquilerId)
+        //api/roles/{rolId}
+        [HttpDelete("{rolId:long}")]
+        public async Task<ActionResult<bool>> DeleteRolAsync(long rolId)
         {
             try
             {
-                var result = await _alquileresService.DeleteAlquilerAsync(alquilerId);
+                var result = await _rolesService.DeleteRolAsync(rolId);
                 return Ok(result);
             }
             catch (NotFoundItemException ex)
@@ -90,13 +90,13 @@ namespace CondominioAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
             }
         }
-        //api/alquileres/{alquilerId}
-        [HttpPut("{alquilerId:long}")]
-        public async Task<ActionResult<AlquilerModel>> UpdateAlquilerAsync(long alquilerId, [FromBody] AlquilerModel updatedAlquiler)
+        //api/roles/{rolId}
+        [HttpPut("{rolId:long}")]
+        public async Task<ActionResult<RolModel>> UpdateRolAsync(long rolId, [FromBody] RolModel updatedRol)
         {
             try
             {
-                var result = await _alquileresService.UpdateAlquilerAsync(alquilerId, updatedAlquiler);
+                var result = await _rolesService.UpdateRolAsync(rolId, updatedRol);
                 return Ok(result);
             }
             catch (NotFoundItemException ex)
