@@ -12,12 +12,11 @@ namespace CondominioAPI.Data.Entities
         [Key]
         [Required]
         public long Id { get; set; }
-        [ForeignKey("PersonaId")]
-        public virtual PersonaEntity Persona { get; set; }
         public string Usuario { get; set; }
         public string Password { get; set; }
+        [ForeignKey("PersonaId")]
+        public virtual PersonaEntity Persona { get; set; }
         [ForeignKey("RolId")]
         public virtual RolEntity Rol { get; set; }
-        public string Estado { get; set; }
     }
 }

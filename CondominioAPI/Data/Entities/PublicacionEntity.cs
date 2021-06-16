@@ -14,12 +14,8 @@ namespace CondominioAPI.Data.Entities
         public long Id { get; set; }
         [ForeignKey("PersonaId")]
         public virtual PersonaEntity Persona { get; set; }
-        [ForeignKey("DepartamentoId")]
-        public virtual DepartamentoEntity Departamento { get; set; }
         public string Asunto { get; set; }
         public string Detalle { get; set; }
-        public string Estado { get; set; }
         public DateTime FechaPublicacion { get; set; }
-        public long EnviadoA { get; set; }
     }
 }

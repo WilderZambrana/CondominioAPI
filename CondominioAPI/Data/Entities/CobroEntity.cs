@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CondominioAPI.Data.Entities
 {
-    public class TipoCobroEntity
+    public class CobroEntity
     {
         [Key]
         [Required]
