@@ -12,6 +12,6 @@ namespace CondominioAPI.Data.Entities
         [Required]
         public long Id { get; set; }
         public string NombreRol { get; set; }
-        public ICollection<LoginEntity> Usuarios { get; set; }
+        public ICollection<LoginEntity> Logins { get; set; }
     }
 }

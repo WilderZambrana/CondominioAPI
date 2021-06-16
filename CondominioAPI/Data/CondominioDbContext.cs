@@ -49,11 +49,11 @@ namespace CondominioAPI.Data
 
             modelBuilder.Entity<RolEntity>().ToTable("Roles");
             modelBuilder.Entity<RolEntity>().Property(r => r.Id).ValueGeneratedOnAdd();
-            modelBuilder.Entity<RolEntity>().HasMany(r => r.Usuarios).WithOne(l => l.Rol);
+            modelBuilder.Entity<RolEntity>().HasMany(r => r.Logins).WithOne(l => l.Rol);
 
             modelBuilder.Entity<LoginEntity>().ToTable("Cuentas");
             modelBuilder.Entity<LoginEntity>().Property(l => l.Id).ValueGeneratedOnAdd();
-            modelBuilder.Entity<LoginEntity>().HasOne(l => l.Rol).WithMany(r => r.Usuarios);
+            modelBuilder.Entity<LoginEntity>().HasOne(l => l.Rol).WithMany(r => r.Logins);
             modelBuilder.Entity<LoginEntity>().HasOne(l => l.Persona).WithMany(p => p.Cuentas);
         }
     }
