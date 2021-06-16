@@ -13,7 +13,7 @@ namespace CondominioAPI.Data.Entities
         [Required]
         public long Id { get; set; }
         public string Descripcion { get; set; }
-        public decimal? Valor { get; set; }
+        public float? Valor { get; set; }
         public double? MultaPorcentaje { get; set; }
         public DateTime? FechaRegistro { get; set; }
         public DateTime? FechaVencimiento { get; set; }
