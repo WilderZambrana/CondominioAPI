@@ -20,5 +20,6 @@ namespace CondominioAPI.Data.Entities
         [ForeignKey("PropietarioId")]
         public virtual PersonaEntity Propietario { get; set; }
         public AlquilerEntity Alquiler { get; set; }
+        public ICollection<CobroEntity> Cobros { get; set; }
     }
 }
