@@ -14,152 +14,157 @@ namespace CondominioAPI.Data.Repository
         {
             _dbContext = dbContext;
         }
+
+        //CREATES
         public void CreateAlquiler(AlquilerEntity newAlquiler)
         {
             _dbContext.Alquileres.Add(newAlquiler);
         }
-
         public void CreateCobro(CobroEntity newCobro)
         {
-            throw new NotImplementedException();
+            _dbContext.Cobros.Add(newCobro);
         }
-
         public void CreateDepartamento(DepartamentoEntity newDepartamento)
         {
             _dbContext.Departamentos.Add(newDepartamento);
         }
-
         public void CreateLogin(LoginEntity newLogin)
         {
-            throw new NotImplementedException();
+            _dbContext.Logins.Add(newLogin);
         }
-
-        public void CreatePersona(PersonaEntity newResidente)
+        public void CreatePersona(PersonaEntity newPersona)
         {
-            _dbContext.Residentes.Add(newResidente);
+            _dbContext.Personas.Add(newPersona);
         }
-
         public void CreatePublicacion(PublicacionEntity newPublicacion)
         {
-            throw new NotImplementedException();
+            _dbContext.Publicaciones.Add(newPublicacion);
         }
-
         public void CreateRol(RolEntity newRol)
         {
-            throw new NotImplementedException();
+            _dbContext.Roles.Add(newRol);
         }
 
-        public Task DeleteAlquilerAsync(long alquilerId)
+        //DELETES
+        public async Task DeleteAlquilerAsync(long alquilerId)
         {
-            throw new NotImplementedException();
+            var toDelete = await _dbContext.Alquileres.FirstAsync(t => t.Id == alquilerId);
+            _dbContext.Alquileres.Remove(toDelete);
         }
-
-        public Task DeleteCobroAsync(long cobroId)
+        public async Task DeleteCobroAsync(long cobroId)
         {
-            throw new NotImplementedException();
+            var toDelete = await _dbContext.Cobros.FirstAsync(t => t.Id == cobroId);
+            _dbContext.Cobros.Remove(toDelete);
         }
-
-        public Task DeleteDepartamentoAsync(long departamentoId)
+        public async Task DeleteDepartamentoAsync(long departamentoId)
         {
-            throw new NotImplementedException();
+            var toDelete = await _dbContext.Departamentos.FirstAsync(t => t.Id == departamentoId);
+            _dbContext.Departamentos.Remove(toDelete);
         }
-
-        public Task DeleteLoginAsync(long loginId)
+        public async Task DeleteLoginAsync(long loginId)
         {
-            throw new NotImplementedException();
+            var toDelete = await _dbContext.Logins.FirstAsync(t => t.Id == loginId);
+            _dbContext.Logins.Remove(toDelete);
         }
-
-        public Task DeletePersonaAsync(long personaId)
+        public async Task DeletePersonaAsync(long personaId)
         {
-            throw new NotImplementedException();
+            var toDelete = await _dbContext.Personas.FirstAsync(t => t.Id == personaId);
+            _dbContext.Personas.Remove(toDelete);
         }
-
-        public Task DeletePublicacionAsync(long publicacionId)
+        public async Task DeletePublicacionAsync(long publicacionId)
         {
-            throw new NotImplementedException();
+            var toDelete = await _dbContext.Publicaciones.FirstAsync(t => t.Id == publicacionId);
+            _dbContext.Publicaciones.Remove(toDelete);
         }
-
-        public Task DeleteRolAsync(long rolId)
+        public async Task DeleteRolAsync(long rolId)
         {
-            throw new NotImplementedException();
+            var toDelete = await _dbContext.Roles.FirstAsync(t => t.Id == rolId);
+            _dbContext.Roles.Remove(toDelete);
         }
 
-        public Task<AlquilerEntity> GetAlquilerAsync(long alquilerId)
+        //GETS
+        public async Task<AlquilerEntity> GetAlquilerAsync(long alquilerId)
         {
-            throw new NotImplementedException();
+            IQueryable<AlquilerEntity> query = _dbContext.Alquileres;
+            query = query.AsNoTracking();
+            return await query.FirstOrDefaultAsync(t => t.Id == alquilerId);
         }
-
         public async Task<IEnumerable<AlquilerEntity>> GetAlquileresAsync()
         {
             IQueryable<AlquilerEntity> query = _dbContext.Alquileres;
             query = query.AsNoTracking();
             return await query.ToListAsync();
         }
-
-        public Task<CobroEntity> GetCobroAsync(long cobroId)
+        public async Task<CobroEntity> GetCobroAsync(long cobroId)
         {
-            throw new NotImplementedException();
+            IQueryable<CobroEntity> query = _dbContext.Cobros;
+            query = query.AsNoTracking();
+            return await query.FirstOrDefaultAsync(t => t.Id == cobroId);
         }
-
-        public Task<IEnumerable<CobroEntity>> GetCobrosAsync()
+        public async Task<IEnumerable<CobroEntity>> GetCobrosAsync()
         {
-            throw new NotImplementedException();
+            IQueryable<CobroEntity> query = _dbContext.Cobros;
+            query = query.AsNoTracking();
+            return await query.ToListAsync();
         }
-
-        public Task<DepartamentoEntity> GetDepartamentoAsync(long departamentoId)
+        public async Task<DepartamentoEntity> GetDepartamentoAsync(long departamentoId)
         {
-            throw new NotImplementedException();
+            IQueryable<DepartamentoEntity> query = _dbContext.Departamentos;
+            query = query.AsNoTracking();
+            return await query.FirstOrDefaultAsync(t => t.Id == departamentoId);
         }
-
         public async Task<IEnumerable<DepartamentoEntity>> GetDepartamentosAsync()
         {
             IQueryable<DepartamentoEntity> query = _dbContext.Departamentos;
             query = query.AsNoTracking();
             return await query.ToListAsync();
         }
-
-        public Task<LoginEntity> GetLoginAsync(long loginId)
+        public async Task<LoginEntity> GetLoginAsync(long loginId)
         {
-            throw new NotImplementedException();
+            IQueryable<LoginEntity> query = _dbContext.Logins;
+            query = query.AsNoTracking();
+            return await query.FirstOrDefaultAsync(t => t.Id == loginId);
         }
-
-        public Task<IEnumerable<LoginEntity>> GetLoginsAsync()
+        public async Task<IEnumerable<LoginEntity>> GetLoginsAsync()
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<PersonaEntity> GetPersonaAsync(long personaId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<IEnumerable<PersonaEntity>> GetPersonasAsync()
-        {
-            IQueryable<PersonaEntity> query = _dbContext.Residentes;
+            IQueryable<LoginEntity> query = _dbContext.Logins;
             query = query.AsNoTracking();
             return await query.ToListAsync();
         }
-
-        public Task<PublicacionEntity> GetPublicacionAsync(long publicacionId)
+        public async Task<PersonaEntity> GetPersonaAsync(long personaId)
+        {
+            IQueryable<PersonaEntity> query = _dbContext.Personas;
+            query = query.AsNoTracking();
+            return await query.FirstOrDefaultAsync(t => t.Id == personaId);
+        }
+        public async Task<IEnumerable<PersonaEntity>> GetPersonasAsync()
+        {
+            IQueryable<PersonaEntity> query = _dbContext.Personas;
+            query = query.AsNoTracking();
+            return await query.ToListAsync();
+        }
+        public async Task<PublicacionEntity> GetPublicacionAsync(long publicacionId)
+        {
+            IQueryable<PublicacionEntity> query = _dbContext.Publicaciones;
+            query = query.AsNoTracking();
+            return await query.FirstOrDefaultAsync(t => t.Id == publicacionId);
+        }
+        public async Task<IEnumerable<PublicacionEntity>> GetPublicacionesAsync()
+        {
+            throw new NotImplementedException();
+        }
+        public async Task<RolEntity> GetRolAsync(long rolId)
+        {
+            IQueryable<RolEntity> query = _dbContext.Roles;
+            query = query.AsNoTracking();
+            return await query.FirstOrDefaultAsync(t => t.Id == rolId);
+        }
+        public async Task<IEnumerable<RolEntity>> GetRolesAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<PublicacionEntity>> GetPublicacionesAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<RolEntity> GetRolAsync(long rolId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<RolEntity>> GetRolesAsync()
-        {
-            throw new NotImplementedException();
-        }
-
+        //SAVE CHANGES
         public async Task<bool> SaveChangesAsync()
         {
             try
@@ -173,36 +178,31 @@ namespace CondominioAPI.Data.Repository
             }
         }
 
+        //UPDATES
         public Task UpdateAlquilerAsync(long alquilerId, AlquilerEntity updatedAlquiler)
         {
             throw new NotImplementedException();
         }
-
         public Task UpdateCobroAsync(long cobroId, CobroEntity updatedCobro)
         {
             throw new NotImplementedException();
         }
-
         public Task UpdateDepartamentoAsync(long departamentoId, DepartamentoEntity updatedDepartamento)
         {
             throw new NotImplementedException();
         }
-
         public Task UpdateLoginAsync(long loginId, LoginEntity updatedLogin)
         {
             throw new NotImplementedException();
         }
-
         public Task UpdatePersonaAsync(long personaId, PersonaEntity updatedPersona)
         {
             throw new NotImplementedException();
         }
-
         public Task UpdatePublicacionAsync(long publicacionId, PublicacionEntity updatedPublicacion)
         {
             throw new NotImplementedException();
         }
-
         public Task UpdateRolAsync(long rolId, RolEntity updatedRol)
         {
             throw new NotImplementedException();

@@ -9,9 +9,13 @@ namespace CondominioAPI.Data
 {
     public class CondominioDbContext : DbContext
     {
-        public DbSet<PersonaEntity> Residentes { get; set; }
+        public DbSet<PersonaEntity> Personas { get; set; }
         public DbSet<DepartamentoEntity> Departamentos { get; set; }
         public DbSet<AlquilerEntity> Alquileres { get; set; }
+        public DbSet<CobroEntity> Cobros { get; set; }
+        public DbSet<PublicacionEntity> Publicaciones { get; set; }
+        public DbSet<RolEntity> Roles { get; set; }
+        public DbSet<LoginEntity> Logins { get; set; }
 
         public CondominioDbContext(DbContextOptions<CondominioDbContext> options):base(options)
         {
@@ -21,7 +25,7 @@ namespace CondominioAPI.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<PersonaEntity>().ToTable("Residentes");
+            modelBuilder.Entity<PersonaEntity>().ToTable("Personas");
             modelBuilder.Entity<PersonaEntity>().Property(r => r.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<PersonaEntity>().HasMany(r => r.Departamentos).WithOne(d => d.Propietario);
             modelBuilder.Entity<PersonaEntity>().HasMany(r => r.Alquileres).WithOne(a => a.Arrendatario);
@@ -51,7 +55,7 @@ namespace CondominioAPI.Data
             modelBuilder.Entity<RolEntity>().Property(r => r.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<RolEntity>().HasMany(r => r.Logins).WithOne(l => l.Rol);
 
-            modelBuilder.Entity<LoginEntity>().ToTable("Cuentas");
+            modelBuilder.Entity<LoginEntity>().ToTable("Logins");
             modelBuilder.Entity<LoginEntity>().Property(l => l.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<LoginEntity>().HasOne(l => l.Rol).WithMany(r => r.Logins);
             modelBuilder.Entity<LoginEntity>().HasOne(l => l.Persona).WithMany(p => p.Logins);

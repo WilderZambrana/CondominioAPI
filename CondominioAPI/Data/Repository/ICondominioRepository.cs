@@ -11,7 +11,7 @@ namespace CondominioAPI.Data.Repository
         //RESIDENTES
         public Task<IEnumerable<PersonaEntity>> GetPersonasAsync();
         public Task<PersonaEntity> GetPersonaAsync(long personaId);
-        public void CreatePersona(PersonaEntity newResidente);
+        public void CreatePersona(PersonaEntity newPersona);
         public Task DeletePersonaAsync(long personaId);
         public Task UpdatePersonaAsync(long personaId, PersonaEntity updatedPersona);
         
