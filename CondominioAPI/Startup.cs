@@ -29,9 +29,13 @@ namespace CondominioAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddTransient<IPersonasService, PersonasService>();
-            services.AddTransient<IDepartamentosService, DepartamentosService>();
             services.AddTransient<IAlquileresService, AlquileresService>();
+            services.AddTransient<ICobrosService, CobrosService>();
+            services.AddTransient<IDepartamentosService, DepartamentosService>();
+            services.AddTransient<ILoginsService, LoginsService>();
+            services.AddTransient<IPersonasService, PersonasService>();
+            services.AddTransient<IPublicacionesService, PublicacionesService>();
+            services.AddTransient<IRolesService, RolesService>();
 
             services.AddTransient<ICondominioRepository, CondominioRepository>();
 
