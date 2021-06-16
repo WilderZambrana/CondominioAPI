@@ -9,8 +9,10 @@ namespace CondominioAPI.Data.Repository
     public interface ICondominioRepository
     {
         //RESIDENTES
-        public Task<IEnumerable<PersonaEntity>> GetResidentesAsync();
-        public void CreateResidente(PersonaEntity newResidente);
+        public Task<IEnumerable<PersonaEntity>> GetPersonasAsync();
+        public Task<PersonaEntity> GetPersonaAsync();
+        public void CreatePersona(PersonaEntity newResidente);
+
 
 
         //DEPARTAMENTOS

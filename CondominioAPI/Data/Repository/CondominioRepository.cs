@@ -24,7 +24,7 @@ namespace CondominioAPI.Data.Repository
             _dbContext.Departamentos.Add(newDepartamento);
         }
 
-        public void CreateResidente(PersonaEntity newResidente)
+        public void CreatePersona(PersonaEntity newResidente)
         {
             _dbContext.Residentes.Add(newResidente);
         }
@@ -43,7 +43,12 @@ namespace CondominioAPI.Data.Repository
             return await query.ToListAsync();
         }
 
-        public async Task<IEnumerable<PersonaEntity>> GetResidentesAsync()
+        public Task<PersonaEntity> GetPersonaAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<PersonaEntity>> GetPersonasAsync()
         {
             IQueryable<PersonaEntity> query = _dbContext.Residentes;
             query = query.AsNoTracking();

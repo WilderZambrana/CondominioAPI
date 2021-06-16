@@ -21,7 +21,7 @@ namespace CondominioAPI.Services
         public async Task<PersonaModel> CreatePersonaAsync(PersonaModel newPersona)
         {
             var resultEntity = _mapper.Map<PersonaEntity>(newPersona);
-            _condominioRepository.CreateResidente(resultEntity);
+            _condominioRepository.CreatePersona(resultEntity);
             var result = await _condominioRepository.SaveChangesAsync();
 
             if (result)
@@ -33,7 +33,7 @@ namespace CondominioAPI.Services
 
         public async Task<IEnumerable<PersonaModel>> GetPersonasAsync()
         {
-            var entityList = await _condominioRepository.GetResidentesAsync();
+            var entityList = await _condominioRepository.GetPersonasAsync();
             var modelList = _mapper.Map<IEnumerable<PersonaModel>>(entityList);
             return modelList;
         }
