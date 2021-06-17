@@ -151,7 +151,7 @@ namespace CondominioAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Descripcion = table.Column<string>(nullable: true),
                     Valor = table.Column<float>(nullable: true),
-                    MultaPorcentaje = table.Column<double>(nullable: true),
+                    MultaPorcentaje = table.Column<float>(nullable: true),
                     FechaRegistro = table.Column<DateTime>(nullable: true),
                     FechaVencimiento = table.Column<DateTime>(nullable: true),
                     DepartamentoId = table.Column<long>(nullable: true)

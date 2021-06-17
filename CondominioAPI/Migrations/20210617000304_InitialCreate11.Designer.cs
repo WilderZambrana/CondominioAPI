@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CondominioAPI.Migrations
 {
     [DbContext(typeof(CondominioDbContext))]
-    [Migration("20210616084422_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20210617000304_InitialCreate11")]
+    partial class InitialCreate11
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -70,8 +70,8 @@ namespace CondominioAPI.Migrations
                     b.Property<DateTime?>("FechaVencimiento")
                         .HasColumnType("datetime2");
 
-                    b.Property<double?>("MultaPorcentaje")
-                        .HasColumnType("float");
+                    b.Property<float?>("MultaPorcentaje")
+                        .HasColumnType("real");
 
                     b.Property<float?>("Valor")
                         .HasColumnType("real");

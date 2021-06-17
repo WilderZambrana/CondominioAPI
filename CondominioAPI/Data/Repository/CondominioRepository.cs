@@ -93,6 +93,8 @@ namespace CondominioAPI.Data.Repository
         {
             IQueryable<AlquilerEntity> query = _dbContext.Alquileres;
             query = query.AsNoTracking();
+            query = query.Include(a => a.Departamento);
+            query = query.Include(a => a.Arrendatario);
             return await query.ToListAsync();
         }
         public async Task<CobroEntity> GetCobroAsync(long cobroId)

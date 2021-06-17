@@ -96,8 +96,8 @@ namespace CondominioAPI.Controllers
         {
             try
             {
-                var team = await _personasService.UpdatePersonaAsync(personaId, updatedPersona);
-                return Ok(team);
+                var result = await _personasService.UpdatePersonaAsync(personaId, updatedPersona);
+                return Ok(result);
             }
             catch (NotFoundItemException ex)
             {

@@ -11,6 +11,6 @@ namespace CondominioAPI.Models
         public long PersonaId { get; set; }
         public string Asunto { get; set; }
         public string Detalle { get; set; }
-        public DateTime FechaPublicacion { get; set; }
+        public DateTime? FechaPublicacion { get; set; }
     }
 }
