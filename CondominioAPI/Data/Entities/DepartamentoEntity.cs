@@ -19,7 +19,7 @@ namespace CondominioAPI.Data.Entities
         public DateTime? FechaActualizacion { get; set; }
         [ForeignKey("PropietarioId")]
         public virtual PersonaEntity Propietario { get; set; }
-        public AlquilerEntity Alquiler { get; set; }
+        public virtual AlquilerEntity Alquiler { get; set; }
         public ICollection<CobroEntity> Cobros { get; set; }
     }
 }

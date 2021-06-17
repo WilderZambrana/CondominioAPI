@@ -67,7 +67,7 @@ namespace CondominioAPI.Controllers
                 var result = await _alquileresService.CreateAlquilerAsync(newAlquiler);
                 return Created($"/api/alquileres/{result.Id}", result);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
             }

@@ -8,10 +8,10 @@ namespace CondominioAPI.Services
 {
     public interface IPublicacionesService
     {
-        public Task<IEnumerable<PublicacionModel>> GetPublicacionesAsync();
-        public Task<PublicacionModel> GetPublicacionAsync(long publicacionId);
-        public Task<PublicacionModel> CreatePublicacionAsync(PublicacionModel newPublicacion);
-        public Task<bool> DeletePublicacionAsync(long publicacionId);
-        public Task<PublicacionModel> UpdatePublicacionAsync(long publicacionId, PublicacionModel updatedPublicacion);
+        public Task<IEnumerable<PublicacionModel>> GetPublicacionesAsync(long personaId);
+        public Task<PublicacionModel> GetPublicacionAsync(long personaId, long publicacionId);
+        public Task<PublicacionModel> CreatePublicacionAsync(long personaId, PublicacionModel newPublicacion);
+        public Task<bool> DeletePublicacionAsync(long personaId, long publicacionId);
+        public Task<PublicacionModel> UpdatePublicacionAsync(long personaId, long publicacionId, PublicacionModel updatedPublicacion);
     }
 }

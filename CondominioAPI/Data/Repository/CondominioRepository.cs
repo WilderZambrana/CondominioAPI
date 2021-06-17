@@ -18,6 +18,8 @@ namespace CondominioAPI.Data.Repository
         //CREATES
         public void CreateAlquiler(AlquilerEntity newAlquiler)
         {
+            _dbContext.Entry(newAlquiler.Departamento).State = EntityState.Unchanged;
+            _dbContext.Entry(newAlquiler.Arrendatario).State = EntityState.Unchanged;
             _dbContext.Alquileres.Add(newAlquiler);
         }
         public void CreateCobro(CobroEntity newCobro)
@@ -26,6 +28,7 @@ namespace CondominioAPI.Data.Repository
         }
         public void CreateDepartamento(DepartamentoEntity newDepartamento)
         {
+            _dbContext.Entry(newDepartamento.Propietario).State = EntityState.Unchanged;
             _dbContext.Departamentos.Add(newDepartamento);
         }
         public void CreateLogin(LoginEntity newLogin)
@@ -36,8 +39,9 @@ namespace CondominioAPI.Data.Repository
         {
             _dbContext.Personas.Add(newPersona);
         }
-        public void CreatePublicacion(PublicacionEntity newPublicacion)
+        public void CreatePublicacion(long personaId, PublicacionEntity newPublicacion)
         {
+            _dbContext.Entry(newPublicacion.Persona).State = EntityState.Unchanged;
             _dbContext.Publicaciones.Add(newPublicacion);
         }
         public void CreateRol(RolEntity newRol)
@@ -71,10 +75,10 @@ namespace CondominioAPI.Data.Repository
             var toDelete = await _dbContext.Personas.FirstAsync(t => t.Id == personaId);
             _dbContext.Personas.Remove(toDelete);
         }
-        public async Task DeletePublicacionAsync(long publicacionId)
+        public async Task DeletePublicacionAsync(long personaId, long publicacionId)
         {
-            var toDelete = await _dbContext.Publicaciones.FirstAsync(t => t.Id == publicacionId);
-            _dbContext.Publicaciones.Remove(toDelete);
+            var toDelete = await _dbContext.Publicaciones.FirstOrDefaultAsync(t => t.Id == publicacionId);
+            _dbContext.Remove(toDelete);
         }
         public async Task DeleteRolAsync(long rolId)
         {
@@ -119,6 +123,7 @@ namespace CondominioAPI.Data.Repository
         {
             IQueryable<DepartamentoEntity> query = _dbContext.Departamentos;
             query = query.AsNoTracking();
+            query = query.Include(d => d.Propietario);
             return await query.ToListAsync();
         }
         public async Task<LoginEntity> GetLoginAsync(long loginId)
@@ -145,15 +150,18 @@ namespace CondominioAPI.Data.Repository
             query = query.AsNoTracking();
             return await query.ToListAsync();
         }
-        public async Task<PublicacionEntity> GetPublicacionAsync(long publicacionId)
+        public async Task<PublicacionEntity> GetPublicacionAsync(long personaId, long publicacionId)
         {
             IQueryable<PublicacionEntity> query = _dbContext.Publicaciones;
             query = query.AsNoTracking();
-            return await query.FirstOrDefaultAsync(t => t.Id == publicacionId);
+            query = query.Include(p => p.Persona);
+            return await query.FirstOrDefaultAsync(p => p.Persona.Id == personaId && p.Id == publicacionId);
         }
-        public async Task<IEnumerable<PublicacionEntity>> GetPublicacionesAsync()
+        public async Task<IEnumerable<PublicacionEntity>> GetPublicacionesAsync(long personaId)
         {
             IQueryable<PublicacionEntity> query = _dbContext.Publicaciones;
+            query = query.Where(p => p.Persona.Id == personaId);
+            query = query.Include(p => p.Persona);
             query = query.AsNoTracking();
             return await query.ToListAsync();
         }
@@ -187,6 +195,8 @@ namespace CondominioAPI.Data.Repository
         //UPDATES
         public async Task UpdateAlquilerAsync(long alquilerId, AlquilerEntity updatedAlquiler)
         {
+            _dbContext.Entry(updatedAlquiler.Arrendatario).State = EntityState.Unchanged;
+            _dbContext.Entry(updatedAlquiler.Departamento).State = EntityState.Unchanged;
             var toUpdate = await _dbContext.Alquileres.FirstOrDefaultAsync(t => t.Id == alquilerId);
 
             toUpdate.FechaInicio = updatedAlquiler.FechaInicio ?? toUpdate.FechaInicio;
@@ -207,6 +217,7 @@ namespace CondominioAPI.Data.Repository
         }
         public async Task UpdateDepartamentoAsync(long departamentoId, DepartamentoEntity updatedDepartamento)
         {
+            _dbContext.Entry(updatedDepartamento.Propietario).State = EntityState.Unchanged;
             var toUpdate = await _dbContext.Departamentos.FirstOrDefaultAsync(t => t.Id == departamentoId);
 
             toUpdate.Bloque = updatedDepartamento.Bloque ?? toUpdate.Bloque;
@@ -239,11 +250,10 @@ namespace CondominioAPI.Data.Repository
             toUpdate.FechaActualizacion = updatedPersona.FechaActualizacion ?? toUpdate.FechaActualizacion;
             toUpdate.Rol = updatedPersona.Rol ?? toUpdate.Rol;
         }
-        public async Task UpdatePublicacionAsync(long publicacionId, PublicacionEntity updatedPublicacion)
+        public async Task UpdatePublicacionAsync(long personaId, long publicacionId, PublicacionEntity updatedPublicacion)
         {
             var toUpdate = await _dbContext.Publicaciones.FirstOrDefaultAsync(t => t.Id == publicacionId);
 
-            toUpdate.Persona = updatedPublicacion.Persona ?? toUpdate.Persona;
             toUpdate.Asunto = updatedPublicacion.Asunto ?? toUpdate.Asunto;
             toUpdate.Detalle = updatedPublicacion.Detalle ?? toUpdate.Detalle;
             toUpdate.FechaPublicacion = updatedPublicacion.FechaPublicacion ?? toUpdate.FechaPublicacion;
