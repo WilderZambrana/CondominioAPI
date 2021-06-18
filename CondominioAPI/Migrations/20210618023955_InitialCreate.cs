@@ -15,13 +15,12 @@ namespace CondominioAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombres = table.Column<string>(nullable: true),
                     Apellidos = table.Column<string>(nullable: true),
-                    Identificacion = table.Column<long>(nullable: true),
+                    CI = table.Column<long>(nullable: true),
                     Telefono = table.Column<long>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     Celular = table.Column<long>(nullable: true),
                     FechaRegistro = table.Column<DateTime>(nullable: true),
-                    FechaActualizacion = table.Column<DateTime>(nullable: true),
-                    Rol = table.Column<string>(nullable: true)
+                    FechaActualizacion = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {

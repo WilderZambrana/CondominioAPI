@@ -247,13 +247,12 @@ namespace CondominioAPI.Data.Repository
 
             toUpdate.Nombres = updatedPersona.Nombres ?? toUpdate.Nombres;
             toUpdate.Apellidos = updatedPersona.Apellidos ?? toUpdate.Apellidos;
-            toUpdate.Identificacion = updatedPersona.Identificacion ?? toUpdate.Identificacion;
+            toUpdate.CI = updatedPersona.CI ?? toUpdate.CI;
             toUpdate.Telefono = updatedPersona.Telefono ?? toUpdate.Telefono;
             toUpdate.Email = updatedPersona.Email ?? toUpdate.Email;
             toUpdate.Celular = updatedPersona.Celular ?? toUpdate.Celular;
             toUpdate.FechaRegistro = updatedPersona.FechaRegistro ?? toUpdate.FechaRegistro;
             toUpdate.FechaActualizacion = updatedPersona.FechaActualizacion ?? toUpdate.FechaActualizacion;
-            toUpdate.Rol = updatedPersona.Rol ?? toUpdate.Rol;
         }
         public async Task UpdatePublicacionAsync(long publicacionId, PublicacionEntity updatedPublicacion)
         {

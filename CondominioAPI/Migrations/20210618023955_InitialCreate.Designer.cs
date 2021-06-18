@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CondominioAPI.Migrations
 {
     [DbContext(typeof(CondominioDbContext))]
-    [Migration("20210617030019_InitialCreate11111000000222")]
-    partial class InitialCreate11111000000222
+    [Migration("20210618023955_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -153,6 +153,9 @@ namespace CondominioAPI.Migrations
                     b.Property<string>("Apellidos")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long?>("CI")
+                        .HasColumnType("bigint");
+
                     b.Property<long?>("Celular")
                         .HasColumnType("bigint");
 
@@ -165,13 +168,7 @@ namespace CondominioAPI.Migrations
                     b.Property<DateTime?>("FechaRegistro")
                         .HasColumnType("datetime2");
 
-                    b.Property<long?>("Identificacion")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("Nombres")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Rol")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("Telefono")

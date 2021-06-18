@@ -10,12 +10,11 @@ namespace CondominioAPI.Models
         public long Id { get; set; }
         public string Nombres { get; set; }
         public string Apellidos { get; set; }
-        public long? Identificacion { get; set; }
+        public long? CI { get; set; }
         public long? Telefono { get; set; }
         public string Email { get; set; }
         public long? Celular { get; set; }
         public DateTime? FechaRegistro { get; set; }
         public DateTime? FechaActualizacion { get; set; }
-        public string Rol { get; set; }
     }
 }

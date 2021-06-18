@@ -151,6 +151,9 @@ namespace CondominioAPI.Migrations
                     b.Property<string>("Apellidos")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long?>("CI")
+                        .HasColumnType("bigint");
+
                     b.Property<long?>("Celular")
                         .HasColumnType("bigint");
 
@@ -163,13 +166,7 @@ namespace CondominioAPI.Migrations
                     b.Property<DateTime?>("FechaRegistro")
                         .HasColumnType("datetime2");
 
-                    b.Property<long?>("Identificacion")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("Nombres")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Rol")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("Telefono")
