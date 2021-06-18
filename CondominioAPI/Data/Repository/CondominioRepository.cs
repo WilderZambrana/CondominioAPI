@@ -139,6 +139,8 @@ namespace CondominioAPI.Data.Repository
         {
             IQueryable<LoginEntity> query = _dbContext.Logins;
             query = query.AsNoTracking();
+            query = query.Include(l => l.Persona);
+            query = query.Include(l => l.Rol);
             return await query.ToListAsync();
         }
         public async Task<PersonaEntity> GetPersonaAsync(long personaId)
