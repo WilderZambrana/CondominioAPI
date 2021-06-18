@@ -38,11 +38,11 @@ namespace CondominioAPI.Data.Repository
         public Task UpdateCobroAsync(long cobroId, CobroEntity updatedCobro);
 
         //PUBLICACIONES
-        public Task<IEnumerable<PublicacionEntity>> GetPublicacionesAsync(long personaId);
-        public void CreatePublicacion(long personaId, PublicacionEntity newPublicacion);
-        public Task<PublicacionEntity> GetPublicacionAsync(long personaId, long publicacionId);
-        public Task DeletePublicacionAsync(long personaId, long publicacionId);
-        public Task UpdatePublicacionAsync(long personaId, long publicacionId, PublicacionEntity updatedPublicacion);
+        public Task<IEnumerable<PublicacionEntity>> GetPublicacionesAsync();
+        public void CreatePublicacion(PublicacionEntity newPublicacion);
+        public Task<PublicacionEntity> GetPublicacionAsync(long publicacionId);
+        public Task DeletePublicacionAsync(long publicacionId);
+        public Task UpdatePublicacionAsync(long publicacionId, PublicacionEntity updatedPublicacion);
 
         //ROLES
         public Task<IEnumerable<RolEntity>> GetRolesAsync();

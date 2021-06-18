@@ -24,6 +24,7 @@ namespace CondominioAPI.Data.Repository
         }
         public void CreateCobro(CobroEntity newCobro)
         {
+            _dbContext.Entry(newCobro.Departamento).State = EntityState.Unchanged;
             _dbContext.Cobros.Add(newCobro);
         }
         public void CreateDepartamento(DepartamentoEntity newDepartamento)
@@ -33,13 +34,15 @@ namespace CondominioAPI.Data.Repository
         }
         public void CreateLogin(LoginEntity newLogin)
         {
+            _dbContext.Entry(newLogin.Persona).State = EntityState.Unchanged;
+            _dbContext.Entry(newLogin.Rol).State = EntityState.Unchanged;
             _dbContext.Logins.Add(newLogin);
         }
         public void CreatePersona(PersonaEntity newPersona)
         {
             _dbContext.Personas.Add(newPersona);
         }
-        public void CreatePublicacion(long personaId, PublicacionEntity newPublicacion)
+        public void CreatePublicacion(PublicacionEntity newPublicacion)
         {
             _dbContext.Entry(newPublicacion.Persona).State = EntityState.Unchanged;
             _dbContext.Publicaciones.Add(newPublicacion);
@@ -75,10 +78,10 @@ namespace CondominioAPI.Data.Repository
             var toDelete = await _dbContext.Personas.FirstAsync(t => t.Id == personaId);
             _dbContext.Personas.Remove(toDelete);
         }
-        public async Task DeletePublicacionAsync(long personaId, long publicacionId)
+        public async Task DeletePublicacionAsync(long publicacionId)
         {
-            var toDelete = await _dbContext.Publicaciones.FirstOrDefaultAsync(t => t.Id == publicacionId);
-            _dbContext.Remove(toDelete);
+            var toDelete = await _dbContext.Publicaciones.FirstAsync(t => t.Id == publicacionId);
+            _dbContext.Publicaciones.Remove(toDelete);
         }
         public async Task DeleteRolAsync(long rolId)
         {
@@ -150,17 +153,16 @@ namespace CondominioAPI.Data.Repository
             query = query.AsNoTracking();
             return await query.ToListAsync();
         }
-        public async Task<PublicacionEntity> GetPublicacionAsync(long personaId, long publicacionId)
+        public async Task<PublicacionEntity> GetPublicacionAsync(long publicacionId)
         {
             IQueryable<PublicacionEntity> query = _dbContext.Publicaciones;
             query = query.AsNoTracking();
             query = query.Include(p => p.Persona);
-            return await query.FirstOrDefaultAsync(p => p.Persona.Id == personaId && p.Id == publicacionId);
+            return await query.FirstOrDefaultAsync(p => p.Id == publicacionId);
         }
-        public async Task<IEnumerable<PublicacionEntity>> GetPublicacionesAsync(long personaId)
+        public async Task<IEnumerable<PublicacionEntity>> GetPublicacionesAsync()
         {
             IQueryable<PublicacionEntity> query = _dbContext.Publicaciones;
-            query = query.Where(p => p.Persona.Id == personaId);
             query = query.Include(p => p.Persona);
             query = query.AsNoTracking();
             return await query.ToListAsync();
@@ -206,6 +208,7 @@ namespace CondominioAPI.Data.Repository
         }
         public async Task UpdateCobroAsync(long cobroId, CobroEntity updatedCobro)
         {
+            _dbContext.Entry(updatedCobro.Departamento).State = EntityState.Unchanged;
             var toUpdate = await _dbContext.Cobros.FirstOrDefaultAsync(t => t.Id == cobroId);
 
             toUpdate.Descripcion = updatedCobro.Descripcion ?? toUpdate.Descripcion;
@@ -229,6 +232,8 @@ namespace CondominioAPI.Data.Repository
         }
         public async Task UpdateLoginAsync(long loginId, LoginEntity updatedLogin)
         {
+            _dbContext.Entry(updatedLogin.Persona).State = EntityState.Unchanged;
+            _dbContext.Entry(updatedLogin.Rol).State = EntityState.Unchanged;
             var toUpdate = await _dbContext.Logins.FirstOrDefaultAsync(t => t.Id == loginId);
 
             toUpdate.Usuario = updatedLogin.Usuario ?? toUpdate.Usuario;
@@ -250,10 +255,12 @@ namespace CondominioAPI.Data.Repository
             toUpdate.FechaActualizacion = updatedPersona.FechaActualizacion ?? toUpdate.FechaActualizacion;
             toUpdate.Rol = updatedPersona.Rol ?? toUpdate.Rol;
         }
-        public async Task UpdatePublicacionAsync(long personaId, long publicacionId, PublicacionEntity updatedPublicacion)
+        public async Task UpdatePublicacionAsync(long publicacionId, PublicacionEntity updatedPublicacion)
         {
+            _dbContext.Entry(updatedPublicacion.Persona).State = EntityState.Unchanged;
             var toUpdate = await _dbContext.Publicaciones.FirstOrDefaultAsync(t => t.Id == publicacionId);
 
+            toUpdate.Persona = updatedPublicacion.Persona ?? toUpdate.Persona;
             toUpdate.Asunto = updatedPublicacion.Asunto ?? toUpdate.Asunto;
             toUpdate.Detalle = updatedPublicacion.Detalle ?? toUpdate.Detalle;
             toUpdate.FechaPublicacion = updatedPublicacion.FechaPublicacion ?? toUpdate.FechaPublicacion;

@@ -20,12 +20,10 @@ namespace CondominioAPI.Services
             _mapper = mapper;
         }
 
-        public async Task<PublicacionModel> CreatePublicacionAsync(long personaId, PublicacionModel newPublicacion)
+        public async Task<PublicacionModel> CreatePublicacionAsync(PublicacionModel newPublicacion)
         {
-            await ValidatePersonaAsync(personaId);
-            newPublicacion.PersonaId = personaId;
             var resultEntity = _mapper.Map<PublicacionEntity>(newPublicacion);
-            _condominioRepository.CreatePublicacion(personaId, resultEntity);
+            _condominioRepository.CreatePublicacion(resultEntity);
             var result = await _condominioRepository.SaveChangesAsync();
 
             if (result)
@@ -34,10 +32,10 @@ namespace CondominioAPI.Services
             }
             throw new Exception("Database Error");
         }
-        public async Task<bool> DeletePublicacionAsync(long personaId, long publicacionId)
+        public async Task<bool> DeletePublicacionAsync(long publicacionId)
         {
-            await ValidatePersonaAndPublicacionAsync(personaId, publicacionId);
-            await _condominioRepository.DeletePublicacionAsync(personaId, publicacionId);
+            await ValidatePublicacionAsync(publicacionId);
+            await _condominioRepository.DeletePublicacionAsync(publicacionId);
             var result = await _condominioRepository.SaveChangesAsync();
 
             if (!result)
@@ -46,29 +44,26 @@ namespace CondominioAPI.Services
             }
             return true;
         }
-        public async Task<PublicacionModel> GetPublicacionAsync(long personaId, long publicacionId)
+        public async Task<PublicacionModel> GetPublicacionAsync(long publicacionId)
         {
-            await ValidatePersonaAsync(personaId);
-            var result = await _condominioRepository.GetPublicacionAsync(personaId, publicacionId);
+            var result = await _condominioRepository.GetPublicacionAsync(publicacionId);
 
             if (result == null)
             {
                 throw new NotFoundItemException($"The publicacion with id: {publicacionId} does not exist.");
             }
-            var resModel = _mapper.Map<PublicacionModel>(result);
-            resModel.PersonaId = personaId;
-            return resModel;
+            return _mapper.Map<PublicacionModel>(result);
         }
-        public async Task<IEnumerable<PublicacionModel>> GetPublicacionesAsync(long personaId)
+        public async Task<IEnumerable<PublicacionModel>> GetPublicacionesAsync()
         {
-            await ValidatePersonaAsync(personaId);
-            var entityList = await _condominioRepository.GetPublicacionesAsync(personaId);
+            var entityList = await _condominioRepository.GetPublicacionesAsync();
             return _mapper.Map<IEnumerable<PublicacionModel>>(entityList);
         }
-        public async Task<PublicacionModel> UpdatePublicacionAsync(long personaId, long publicacionId, PublicacionModel updatedPublicacion)
+        public async Task<PublicacionModel> UpdatePublicacionAsync(long publicacionId, PublicacionModel updatedPublicacion)
         {
-            await ValidatePersonaAndPublicacionAsync(personaId, publicacionId);
-            await _condominioRepository.UpdatePublicacionAsync(personaId, publicacionId, _mapper.Map<PublicacionEntity>(updatedPublicacion));
+            await GetPublicacionAsync(publicacionId);
+            updatedPublicacion.Id = publicacionId;
+            await _condominioRepository.UpdatePublicacionAsync(publicacionId, _mapper.Map<PublicacionEntity>(updatedPublicacion));
             var result = await _condominioRepository.SaveChangesAsync();
 
             if (!result)
@@ -78,17 +73,9 @@ namespace CondominioAPI.Services
             return _mapper.Map<PublicacionModel>(updatedPublicacion);
         }
 
-        private async Task ValidatePersonaAndPublicacionAsync(long personaId, long publicacionId)
+        private async Task ValidatePublicacionAsync(long publicacionId)
         {
-            var publicacion = await GetPublicacionAsync(personaId, publicacionId);
-        }
-        private async Task ValidatePersonaAsync(long personaId)
-        {
-            var persona = await _condominioRepository.GetPersonaAsync(personaId);
-            if(persona ==null)
-            {
-                throw new NotFoundItemException($"The person with id: {personaId} does not exist.");
-            }
+            await GetPublicacionAsync(publicacionId);
         }
     }
 }
