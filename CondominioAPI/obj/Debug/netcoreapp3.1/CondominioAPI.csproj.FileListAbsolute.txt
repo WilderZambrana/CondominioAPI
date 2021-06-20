@@ -61,3 +61,9 @@ C:\Users\usuario\Desktop\ProyectoFinalSisInfo\CondominioAPI\CondominioAPI\obj\De
 C:\Users\usuario\Desktop\ProyectoFinalSisInfo\CondominioAPI\CondominioAPI\obj\Debug\netcoreapp3.1\CondominioAPI.dll
 C:\Users\usuario\Desktop\ProyectoFinalSisInfo\CondominioAPI\CondominioAPI\obj\Debug\netcoreapp3.1\CondominioAPI.pdb
 C:\Users\usuario\Desktop\ProyectoFinalSisInfo\CondominioAPI\CondominioAPI\obj\Debug\netcoreapp3.1\CondominioAPI.genruntimeconfig.cache
+C:\Users\usuario\Desktop\ProyectoFinalSisInfo\CondominioAPI\CondominioAPI\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\usuario\Desktop\ProyectoFinalSisInfo\CondominioAPI\CondominioAPI\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\usuario\Desktop\ProyectoFinalSisInfo\CondominioAPI\CondominioAPI\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\usuario\Desktop\ProyectoFinalSisInfo\CondominioAPI\CondominioAPI\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\usuario\Desktop\ProyectoFinalSisInfo\CondominioAPI\CondominioAPI\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
+C:\Users\usuario\Desktop\ProyectoFinalSisInfo\CondominioAPI\CondominioAPI\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Stores.dll

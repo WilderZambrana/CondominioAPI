@@ -44,20 +44,6 @@ namespace CondominioAPI.Data.Repository
         public Task DeletePublicacionAsync(long publicacionId);
         public Task UpdatePublicacionAsync(long publicacionId, PublicacionEntity updatedPublicacion);
 
-        //ROLES
-        public Task<IEnumerable<RolEntity>> GetRolesAsync();
-        public void CreateRol(RolEntity newRol);
-        public Task<RolEntity> GetRolAsync(long rolId);
-        public Task DeleteRolAsync(long rolId);
-        public Task UpdateRolAsync(long rolId, RolEntity updatedRol);
-
-        //LOGINS
-        public Task<IEnumerable<LoginEntity>> GetLoginsAsync();
-        public void CreateLogin(LoginEntity newLogin);
-        public Task<LoginEntity> GetLoginAsync(long loginId);
-        public Task DeleteLoginAsync(long loginId);
-        public Task UpdateLoginAsync(long loginId, LoginEntity updatedLogin);
-
         //GUARDAR CAMBIOS
         Task<bool> SaveChangesAsync();
     }

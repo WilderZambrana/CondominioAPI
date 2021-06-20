@@ -32,12 +32,6 @@ namespace CondominioAPI.Data.Repository
             _dbContext.Entry(newDepartamento.Propietario).State = EntityState.Unchanged;
             _dbContext.Departamentos.Add(newDepartamento);
         }
-        public void CreateLogin(LoginEntity newLogin)
-        {
-            _dbContext.Entry(newLogin.Persona).State = EntityState.Unchanged;
-            _dbContext.Entry(newLogin.Rol).State = EntityState.Unchanged;
-            _dbContext.Logins.Add(newLogin);
-        }
         public void CreatePersona(PersonaEntity newPersona)
         {
             _dbContext.Personas.Add(newPersona);
@@ -46,10 +40,6 @@ namespace CondominioAPI.Data.Repository
         {
             _dbContext.Entry(newPublicacion.Persona).State = EntityState.Unchanged;
             _dbContext.Publicaciones.Add(newPublicacion);
-        }
-        public void CreateRol(RolEntity newRol)
-        {
-            _dbContext.Roles.Add(newRol);
         }
 
         //DELETES
@@ -68,11 +58,6 @@ namespace CondominioAPI.Data.Repository
             var toDelete = await _dbContext.Departamentos.FirstAsync(t => t.Id == departamentoId);
             _dbContext.Departamentos.Remove(toDelete);
         }
-        public async Task DeleteLoginAsync(long loginId)
-        {
-            var toDelete = await _dbContext.Logins.FirstAsync(t => t.Id == loginId);
-            _dbContext.Logins.Remove(toDelete);
-        }
         public async Task DeletePersonaAsync(long personaId)
         {
             var toDelete = await _dbContext.Personas.FirstAsync(t => t.Id == personaId);
@@ -82,11 +67,6 @@ namespace CondominioAPI.Data.Repository
         {
             var toDelete = await _dbContext.Publicaciones.FirstAsync(t => t.Id == publicacionId);
             _dbContext.Publicaciones.Remove(toDelete);
-        }
-        public async Task DeleteRolAsync(long rolId)
-        {
-            var toDelete = await _dbContext.Roles.FirstAsync(t => t.Id == rolId);
-            _dbContext.Roles.Remove(toDelete);
         }
 
         //GETS
@@ -129,20 +109,6 @@ namespace CondominioAPI.Data.Repository
             query = query.Include(d => d.Propietario);
             return await query.ToListAsync();
         }
-        public async Task<LoginEntity> GetLoginAsync(long loginId)
-        {
-            IQueryable<LoginEntity> query = _dbContext.Logins;
-            query = query.AsNoTracking();
-            return await query.FirstOrDefaultAsync(t => t.Id == loginId);
-        }
-        public async Task<IEnumerable<LoginEntity>> GetLoginsAsync()
-        {
-            IQueryable<LoginEntity> query = _dbContext.Logins;
-            query = query.AsNoTracking();
-            query = query.Include(l => l.Persona);
-            query = query.Include(l => l.Rol);
-            return await query.ToListAsync();
-        }
         public async Task<PersonaEntity> GetPersonaAsync(long personaId)
         {
             IQueryable<PersonaEntity> query = _dbContext.Personas;
@@ -166,18 +132,6 @@ namespace CondominioAPI.Data.Repository
         {
             IQueryable<PublicacionEntity> query = _dbContext.Publicaciones;
             query = query.Include(p => p.Persona);
-            query = query.AsNoTracking();
-            return await query.ToListAsync();
-        }
-        public async Task<RolEntity> GetRolAsync(long rolId)
-        {
-            IQueryable<RolEntity> query = _dbContext.Roles;
-            query = query.AsNoTracking();
-            return await query.FirstOrDefaultAsync(t => t.Id == rolId);
-        }
-        public async Task<IEnumerable<RolEntity>> GetRolesAsync()
-        {
-            IQueryable<RolEntity> query = _dbContext.Roles;
             query = query.AsNoTracking();
             return await query.ToListAsync();
         }
@@ -232,17 +186,6 @@ namespace CondominioAPI.Data.Repository
             toUpdate.FechaActualizacion = updatedDepartamento.FechaActualizacion ?? toUpdate.FechaActualizacion;
             toUpdate.Propietario = updatedDepartamento.Propietario ?? toUpdate.Propietario; 
         }
-        public async Task UpdateLoginAsync(long loginId, LoginEntity updatedLogin)
-        {
-            _dbContext.Entry(updatedLogin.Persona).State = EntityState.Unchanged;
-            _dbContext.Entry(updatedLogin.Rol).State = EntityState.Unchanged;
-            var toUpdate = await _dbContext.Logins.FirstOrDefaultAsync(t => t.Id == loginId);
-
-            toUpdate.Usuario = updatedLogin.Usuario ?? toUpdate.Usuario;
-            toUpdate.Password = updatedLogin.Password ?? toUpdate.Password;
-            toUpdate.Persona = updatedLogin.Persona ?? toUpdate.Persona;
-            toUpdate.Rol = updatedLogin.Rol ?? toUpdate.Rol;
-        }
         public async Task UpdatePersonaAsync(long personaId, PersonaEntity updatedPersona)
         {
             var toUpdate = await _dbContext.Personas.FirstOrDefaultAsync(t => t.Id == personaId);
@@ -265,12 +208,6 @@ namespace CondominioAPI.Data.Repository
             toUpdate.Asunto = updatedPublicacion.Asunto ?? toUpdate.Asunto;
             toUpdate.Detalle = updatedPublicacion.Detalle ?? toUpdate.Detalle;
             toUpdate.FechaPublicacion = updatedPublicacion.FechaPublicacion ?? toUpdate.FechaPublicacion;
-        }
-        public async Task UpdateRolAsync(long rolId, RolEntity updatedRol)
-        {
-            var toUpdate = await _dbContext.Roles.FirstOrDefaultAsync(t => t.Id == rolId);
-
-            toUpdate.NombreRol = updatedRol.NombreRol ?? toUpdate.NombreRol;
         }
     }
 }

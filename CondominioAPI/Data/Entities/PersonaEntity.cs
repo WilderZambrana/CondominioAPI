@@ -24,6 +24,5 @@ namespace CondominioAPI.Data.Entities
         public ICollection<DepartamentoEntity> Departamentos { get; set; }
         public ICollection<AlquilerEntity> Alquileres { get; set; }
         public ICollection<PublicacionEntity> Publicaciones { get; set; }
-        public ICollection<LoginEntity> Logins { get; set; }
     }
 }

@@ -1,4 +1,7 @@
 ﻿using CondominioAPI.Data.Entities;
+using CondominioAPI.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,15 +10,13 @@ using System.Threading.Tasks;
 
 namespace CondominioAPI.Data
 {
-    public class CondominioDbContext : DbContext
+    public class CondominioDbContext : IdentityDbContext<IdentityUserModel>
     {
         public DbSet<PersonaEntity> Personas { get; set; }
         public DbSet<DepartamentoEntity> Departamentos { get; set; }
         public DbSet<AlquilerEntity> Alquileres { get; set; }
         public DbSet<CobroEntity> Cobros { get; set; }
         public DbSet<PublicacionEntity> Publicaciones { get; set; }
-        public DbSet<RolEntity> Roles { get; set; }
-        public DbSet<LoginEntity> Logins { get; set; }
 
         public CondominioDbContext(DbContextOptions<CondominioDbContext> options):base(options)
         {
@@ -30,7 +31,6 @@ namespace CondominioAPI.Data
             modelBuilder.Entity<PersonaEntity>().HasMany(r => r.Departamentos).WithOne(d => d.Propietario);
             modelBuilder.Entity<PersonaEntity>().HasMany(r => r.Alquileres).WithOne(a => a.Arrendatario);
             modelBuilder.Entity<PersonaEntity>().HasMany(r => r.Publicaciones).WithOne(p => p.Persona);
-            modelBuilder.Entity<PersonaEntity>().HasMany(r => r.Logins).WithOne(l => l.Persona);
 
             modelBuilder.Entity<DepartamentoEntity>().ToTable("Departamentos");
             modelBuilder.Entity<DepartamentoEntity>().Property(d => d.Id).ValueGeneratedOnAdd();
@@ -50,15 +50,6 @@ namespace CondominioAPI.Data
             modelBuilder.Entity<CobroEntity>().ToTable("Cobros");
             modelBuilder.Entity<CobroEntity>().Property(c => c.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<CobroEntity>().HasOne(c => c.Departamento).WithMany(d => d.Cobros);
-
-            modelBuilder.Entity<RolEntity>().ToTable("Roles");
-            modelBuilder.Entity<RolEntity>().Property(r => r.Id).ValueGeneratedOnAdd();
-            modelBuilder.Entity<RolEntity>().HasMany(r => r.Logins).WithOne(l => l.Rol);
-
-            modelBuilder.Entity<LoginEntity>().ToTable("Logins");
-            modelBuilder.Entity<LoginEntity>().Property(l => l.Id).ValueGeneratedOnAdd();
-            modelBuilder.Entity<LoginEntity>().HasOne(l => l.Rol).WithMany(r => r.Logins);
-            modelBuilder.Entity<LoginEntity>().HasOne(l => l.Persona).WithMany(p => p.Logins);
         }
     }
 }
