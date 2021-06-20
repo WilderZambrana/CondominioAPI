@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CondominioAPI.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     [Route("api/[controller]")]
     public class PersonasController : Controller
     {

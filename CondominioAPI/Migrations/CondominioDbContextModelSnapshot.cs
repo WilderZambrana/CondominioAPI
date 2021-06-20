@@ -220,6 +220,9 @@ namespace CondominioAPI.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<long>("RolId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 

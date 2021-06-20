@@ -20,8 +20,9 @@ namespace CondominioAPI.Models.Security
         [Required]
         [StringLength(50, MinimumLength = 5)]
         public string ConfirmPassword { get; set; }
-
         [Required]
         public long PersonaId { get; set; }
+        [Required]
+        public long RolId { get; set; }
     }
 }

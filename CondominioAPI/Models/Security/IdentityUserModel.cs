@@ -10,5 +10,6 @@ namespace CondominioAPI.Models
     public class IdentityUserModel : IdentityUser
     {
         public long PersonaId { get; set; }
+        public long RolId { get; set; }
     }
 }

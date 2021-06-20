@@ -1,4 +1,6 @@
-﻿using CondominioAPI.Models.Security;
+﻿using CondominioAPI.Models;
+using CondominioAPI.Models.Security;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +15,7 @@ namespace CondominioAPI.Services.Security
 
         Task<UserManagerResponse> LoginUserAsync(LoginViewModel model);
         Task<UserManagerResponse> CreateUserRoleAsync(CreateUserRoleViewModel model);
+        Task<UserManagerResponse> GetCuentasAsync(IdentityUserModel model);
+        Task<UserManagerResponse> GetRolesAsync(IdentityRole model);
     }
 }

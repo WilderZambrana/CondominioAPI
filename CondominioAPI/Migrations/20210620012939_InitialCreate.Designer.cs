@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CondominioAPI.Migrations
 {
     [DbContext(typeof(CondominioDbContext))]
-    [Migration("20210620001535_InitialCreate")]
+    [Migration("20210620012939_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -221,6 +221,9 @@ namespace CondominioAPI.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<long>("RolId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");

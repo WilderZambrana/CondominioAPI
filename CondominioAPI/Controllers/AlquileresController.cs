@@ -1,6 +1,7 @@
 ﻿using CondominioAPI.Exceptions;
 using CondominioAPI.Models;
 using CondominioAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace CondominioAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class AlquileresController : Controller
     {

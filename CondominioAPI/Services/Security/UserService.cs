@@ -80,6 +80,7 @@ namespace CondominioAPI.Services.Security
                 IsSuccess = true,
                 ExpireDate = token.ValidTo,
                 PersonaId = user.PersonaId,
+                PersonRol = user.RolId,
             };
         }
 
@@ -101,7 +102,8 @@ namespace CondominioAPI.Services.Security
             {
                 Email = model.Email,
                 UserName = model.Email,
-                PersonaId = model.PersonaId
+                PersonaId = model.PersonaId,
+                RolId=model.RolId
             };
 
             var result = await userManager.CreateAsync(identityUser, model.Password);
@@ -198,6 +200,16 @@ namespace CondominioAPI.Services.Security
                 Message = "something went wrong",
                 IsSuccess = false
             };
+        }
+
+        public async Task<UserManagerResponse> GetCuentasAsync(IdentityUserModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<UserManagerResponse> GetRolesAsync(IdentityRole model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

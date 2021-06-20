@@ -11,7 +11,7 @@ namespace CondominioAPI.Models.Security
         public bool IsSuccess { get; set; }
         public IEnumerable<string> Errors { get; set; }
         public DateTime? ExpireDate { get; set; }
-        public string PersonRol { get; set; }
+        public long PersonRol { get; set; }
         public long PersonaId { get; set; }
     }
 }

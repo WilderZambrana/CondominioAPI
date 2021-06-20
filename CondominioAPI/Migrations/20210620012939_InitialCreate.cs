@@ -40,7 +40,8 @@ namespace CondominioAPI.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    PersonaId = table.Column<long>(nullable: false)
+                    PersonaId = table.Column<long>(nullable: false),
+                    RolId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
